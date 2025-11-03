@@ -5,6 +5,7 @@ on:
     paths:
       - 'cn/*.txt'
       - 'tw/*.txt'
+  workflow_dispatch:
 
 jobs:
   sync-translations:
