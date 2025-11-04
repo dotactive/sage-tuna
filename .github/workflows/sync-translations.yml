@@ -1,14 +1,16 @@
-name: Sync CN and TW Translations
+name: Sync Translations and Update Files
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'cn/*.txt'
       - 'tw/*.txt'
   workflow_dispatch:
 
 jobs:
-  sync-translations:
+  sync-and-update:
     runs-on: ubuntu-latest
 
     steps:
@@ -69,15 +71,18 @@ jobs:
           console.log(`\nSuccessfully converted ${files.length} files from CN to TW`);
           EOF
 
+      - name: Update files.json for both folders
+        run: node scripts/update-files-json.js
+
       - name: Commit and push changes
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add tw/*.txt
+          git config --global user.name "rudy"
+          git config --global user.email "treble_l@hotmail.com"
+          git add tw/*.txt cn/files.json tw/files.json
           if ! git diff --staged --quiet; then
-            git commit -m "Auto-sync: Convert CN to TW (Traditional Chinese)"
+            git commit -m "Auto-sync: Update translations and files.json" --quiet
             git pull --rebase origin main
-            git push
+            git push origin main
           else
             echo "No changes to commit"
           fi
