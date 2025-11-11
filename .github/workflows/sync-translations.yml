@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - 'en/*.txt'
       - 'cn/*.txt'
       - 'tw/*.txt'
   workflow_dispatch:
@@ -78,7 +79,7 @@ jobs:
         run: |
           git config --global user.name "rudy"
           git config --global user.email "treble_l@hotmail.com"
-          git add tw/*.txt cn/files.json tw/files.json
+          git add tw/*.txt en/files.json cn/files.json tw/files.json
           if ! git diff --staged --quiet; then
             git commit -m "Auto-sync: Update translations and files.json" --quiet
             git pull --rebase origin main

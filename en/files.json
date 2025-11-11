@@ -1,8 +1,18 @@
-{"files": [
-"01-pandoras-box.txt",
-"02-sage-Tuna.txt",
-"03-the-dream.txt",
-"04-the-gaze-of-the-abyss.txt",
-"05-the-ringing.txt"
-"06-time-travel.txt"
-]}
+{
+  "files": [
+    "01-pandoras-box.txt",
+    "02-sage-Tuna.txt",
+    "03-the-dream.txt",
+    "04-the-gaze-of-the-abyss.txt",
+    "05-the-ringing.txt",
+    "06-time-travel.txt",
+    "07-the-interpretation-of-dreams.txt",
+    "08-two-lice.txt",
+    "09-stop-it.txt",
+    "10-skeletal-wraith.txt",
+    "11-the-debt.txt",
+    "12-the-last-half-bottle-of-water.txt",
+    "13-wolf-pack-company.txt",
+    "14-the-last-two-days.txt"
+  ]
+}
