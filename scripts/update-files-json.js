@@ -1,23 +1,40 @@
 const fs = require('fs');
 const path = require('path');
 
+function updateFilesJson(folderPath, folderName) {
+  const filesJsonPath = path.join(folderPath, 'files.json');
+
+  // Read existing files.json if it exists
+  let existingData = {};
+  if (fs.existsSync(filesJsonPath)) {
+    try {
+      const content = fs.readFileSync(filesJsonPath, 'utf8');
+      existingData = JSON.parse(content);
+    } catch (error) {
+      console.warn(`Warning: Could not parse existing ${folderName}/files.json, creating new one.`);
+    }
+  }
+
+  // Get all .txt files
+  const txtFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.txt'));
+
+  // Preserve existing properties and update files array
+  const updatedData = {
+    ...existingData,
+    files: txtFiles
+  };
+
+  // Write back to files.json
+  const jsonContent = JSON.stringify(updatedData, null, 2);
+  fs.writeFileSync(filesJsonPath, jsonContent);
+  console.log(`${folderName}/files.json updated successfully.`);
+}
+
 // Update files.json for EN folder
-const enPath = './en';
-const enFiles = fs.readdirSync(enPath).filter(file => file.endsWith('.txt'));
-const enJson = JSON.stringify({ files: enFiles }, null, 2);
-fs.writeFileSync(path.join(enPath, 'files.json'), enJson);
-console.log('en/files.json updated successfully.');
+updateFilesJson('./en', 'en');
 
 // Update files.json for CN folder
-const cnPath = './cn';
-const cnFiles = fs.readdirSync(cnPath).filter(file => file.endsWith('.txt'));
-const cnJson = JSON.stringify({ files: cnFiles }, null, 2);
-fs.writeFileSync(path.join(cnPath, 'files.json'), cnJson);
-console.log('cn/files.json updated successfully.');
+updateFilesJson('./cn', 'cn');
 
 // Update files.json for TW folder
-const twPath = './tw';
-const twFiles = fs.readdirSync(twPath).filter(file => file.endsWith('.txt'));
-const twJson = JSON.stringify({ files: twFiles }, null, 2);
-fs.writeFileSync(path.join(twPath, 'files.json'), twJson);
-console.log('tw/files.json updated successfully.');
+updateFilesJson('./tw', 'tw');
